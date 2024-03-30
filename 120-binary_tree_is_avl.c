@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 
 /**
- * tree_height - Measures the height of a binary tree.
+ * tree_height - Computes the height of a binary tree.
  * @tree: A pointer to the root node of the tree.
  *
  * Return: The height of the tree, or 0 if tree is NULL.
@@ -9,9 +9,11 @@
 size_t tree_height(const binary_tree_t *tree)
 {
 	if (!tree)
-		return 0;
+		return (0);
+
 	size_t left_height = tree_height(tree->left);
 	size_t right_height = tree_height(tree->right);
+
 	return (left_height > right_height ? left_height + 1 : right_height + 1);
 }
 
@@ -26,13 +28,17 @@ size_t tree_height(const binary_tree_t *tree)
 int is_avl_recursive(const binary_tree_t *tree, int min, int max)
 {
 	if (!tree)
-		return 1;
+		return (1);
+
 	if (tree->n < min || tree->n > max)
-		return 0;
+		return (0);
+
 	int left_height = tree_height(tree->left);
 	int right_height = tree_height(tree->right);
+
 	if (abs(left_height - right_height) > 1)
-		return 0;
+		return (0);
+
 	return (is_avl_recursive(tree->left, min, tree->n - 1) &&
 			is_avl_recursive(tree->right, tree->n + 1, max));
 }
@@ -46,6 +52,7 @@ int is_avl_recursive(const binary_tree_t *tree, int min, int max)
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
 	if (!tree)
-		return 0;
-	return is_avl_recursive(tree, INT_MIN, INT_MAX);
+		return (0);
+
+	return (is_avl_recursive(tree, INT_MIN, INT_MAX));
 }
